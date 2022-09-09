@@ -13,10 +13,16 @@ T max(T a, T b) {
 	return (a > b) ? a : b;
 }
 
-void DrawPixel(Image* output, int x, int y, const ubvec4& color, int size = 1) {
+#define DRAW_PIXEL DrawPixel2
+
+inline void DrawPixel(Image* output, int x, int y, const ubvec4& color, int size = 1) {
+	unsigned int* pixelBuffer = (unsigned int*)output->getData();
+	const unsigned int width = output->getSize().x;
+	const unsigned int data = color.w << 24 | color.x << 16 | color.y << 8 | color.z;
+	const unsigned int index = y * width + x;
 	for (int yIndex = 0; yIndex < size; ++yIndex) {
 		for (int xIndex = 0; xIndex < size; ++xIndex) {
-			output->setRawPixel(x + xIndex, y + yIndex, color);
+			pixelBuffer[index + yIndex * width + xIndex] = data;
 		}
 	}
 }
@@ -56,6 +62,7 @@ TileRenderer::TileRenderer() {
 	tileset = NULL;
 	
 	tileBuffer = NULL;
+	static_assert(TileRenderer::PixelScale == 3, "Replace DrawPixel2 with DrawPixel");
 }
 
 void TileRenderer::setPaletteList(const Palette* value) {
@@ -196,7 +203,7 @@ void TileRenderer::draw(Image *output, const unsigned long long currentTime) {
 					if ((destPixelX < 0) || (destPixelX >= OutputWidth)) {
 						continue;
 					}
-					DrawPixel2(output, destPixelX * PixelScale, destPixelY * PixelScale, destPixel, PixelScale);
+					DRAW_PIXEL(output, destPixelX * PixelScale, destPixelY * PixelScale, destPixel, PixelScale);
 				}
 			}
 		}
@@ -261,7 +268,7 @@ void TileRenderer::drawSprite(Image* output, const unsigned int spriteIndex, con
 			if (destPixel == transparentColor) {
 				continue;
 			}
-			DrawPixel2(output, destPixelX * PixelScale, destPixelY * PixelScale, destPixel, PixelScale);
+			DRAW_PIXEL(output, destPixelX * PixelScale, destPixelY * PixelScale, destPixel, PixelScale);
 		}
 	}
 }

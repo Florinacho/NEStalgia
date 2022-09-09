@@ -78,6 +78,8 @@ public:
 
 	HWND getNativeHandle() const;
 	
+	void clear();
+	
 	void blit(const Image* image);
 };
 

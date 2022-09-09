@@ -2,9 +2,9 @@ OUTPUT=main.exe
 
 CC=mingw32-g++.exe
 
-C_FLAGS=-O1 #-msse3 -ffast-math -march=native
+C_FLAGS=-O2 #-msse3 -ffast-math -march=native
 #C_FLAGS=-g3
-L_FLAGS=-O1 #-msse3 -ffast-math -march=native
+L_FLAGS=-O2 #-msse3 -ffast-math -march=native
 
 #L_FLAGS+=-Wl,-subsystem,windows
 

@@ -23,24 +23,24 @@ public:
 	Character enemy;
 	bool keys[KEY_MOVE_COUNT];
 	bool jumped;
-	
+
 	GameLevel *currentLevel;
 	bool isSolid(int x, int y) const;
-	
+
 public:
 	Game();
-	
+
 	~Game();
-	
+
 	int loadLevel(GameLevel* level);
-	
-	int getTile(const unsigned int x, const unsigned int y) const;
-	
+
+	int getTile(int x, int y) const;
+
 	bool onEvent(Event& event);
-	
-	void update(unsigned int deltaTime);
-	
-	void draw(Image* output, const unsigned long long currentTime);
+
+	void update(uint32_t deltaTime);
+
+	void draw(Image* output, uint64_t currentTime);
 };
 
 extern Game* GamePtr;

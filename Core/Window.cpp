@@ -412,8 +412,16 @@ HDC Win32Window::getNativeDisplay() const {
 HWND Win32Window::getNativeHandle() const {
 	return _window;
 }
+void Win32Window::clear() {
+	ExtFloodFill(_display, 0, 0, RGB(255, 255, 255), FLOODFILLSURFACE);
+	memset(data, 75, size.x * size.y * 4);
+}
 
 void Win32Window::blit(const Image* image) {
+	if (image == NULL) {
+		BitBlt(_display, 0, 0, size.x, size.y, hDCMem, 0, 0, SRCCOPY);
+		return;
+	}
 	if (image->getSize() != getSize()) {
 		return;
 	}

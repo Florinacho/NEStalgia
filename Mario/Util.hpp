@@ -1,6 +1,8 @@
 #ifndef __UTIL_HPP__
 #define __UTIL_HPP__
 
+#include <stdint.h>
+
 enum CollisionResponse {
 	CR_NONE,
 	CR_SOLID,
@@ -23,32 +25,27 @@ enum TileType {
 	ETT_WATER = 8,
 	ETT_LAVA = 9,
 	ETT_LADDER = 10,
-	
+
 	ETT_COUNT
 };
 
-struct AnimationConfig {
-	unsigned char beginFrame;
-	unsigned char frameCount;
-	unsigned char loop;
-	unsigned char delay;
-};
-
-struct CharacterConfig {
-	unsigned char speed;
-	const AnimationConfig* animations[];
+struct Animation {
+	uint8_t beginFrame;
+	uint8_t frameCount;
+	uint8_t loop;
+	uint8_t delay;
 };
 
 struct GameLevel {
-	unsigned int playerStartX;
-	unsigned int playerStartY;
-	unsigned int tileCountX;
-	unsigned int tileCountY;
-	unsigned char horizontal;
-	unsigned int targetX;
-	unsigned int targetY;
+	uint32_t playerStartX;
+	uint32_t playerStartY;
+	uint32_t tileCountX;
+	uint32_t tileCountY;
+	uint8_t horizontal;
+	uint32_t targetX;
+	uint32_t targetY;
 	GameLevel* target;
-	unsigned char tiles[];
+	uint8_t tiles[];
 	/* Enemy array */
 };
 

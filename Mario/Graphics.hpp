@@ -6,11 +6,6 @@
 #include "Util.hpp"
 
 /*****************************************************************************/
-/* MISC.                                                                     */
-/*****************************************************************************/
-unsigned int GetGraphicMemorySize();
-
-/*****************************************************************************/
 /* Palettes                                                                  */
 /*****************************************************************************/
 extern const Palette Palettes[];
@@ -20,29 +15,23 @@ extern const unsigned int PaletteCount;
 /* Sprites                                                                   */
 /*****************************************************************************/
 extern const uvec2 SpriteCount;
-extern const unsigned int MaxSpriteIndex;
-extern const unsigned char SpriteData[];
+extern const uint32_t MaxSpriteIndex;
+extern const uint8_t SpriteData[];
 
 /*****************************************************************************/
 /* Animations                                                                */
 /*****************************************************************************/
-extern const AnimationConfig ANIM_PLAYER_IDLE;
-extern const AnimationConfig ANIM_PLAYER_MOVE;
-extern const AnimationConfig ANIM_PLAYER_SWIM;
-extern const AnimationConfig ANIM_PLAYER_JUMP;
-extern const AnimationConfig ANIM_PLAYER_CLIMB;
-extern const AnimationConfig ANIM_PLAYER_DEAD;
+extern const Animation ANIM_PLAYER_IDLE;
+extern const Animation ANIM_PLAYER_MOVE;
+extern const Animation ANIM_PLAYER_SWIM;
+extern const Animation ANIM_PLAYER_JUMP;
+extern const Animation ANIM_PLAYER_CLIMB;
+extern const Animation ANIM_PLAYER_DEAD;
 
-extern const AnimationConfig ANIM_BLOB_MOVE;
-
-/*****************************************************************************/
-/* Character configurations                                                  */
-/*****************************************************************************/
-extern const CharacterConfig CHR_PLAYER_CONFIG;
-extern const CharacterConfig CHR_BLOOOB_CONFIG;
+extern const Animation ANIM_BLOB_MOVE;
 
 /*****************************************************************************/
-/* Tileset                                                                     */
+/* Tileset                                                                   */
 /*****************************************************************************/
 extern const TileConfig Tiles[];
 extern const unsigned int TileConfigCount;

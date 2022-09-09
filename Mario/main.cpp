@@ -15,44 +15,36 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	Image colorBuffer;
-	colorBuffer.create(output.getSize(), output.getPixelFormat());
-	colorBuffer.wrapping = Image::EWT_DISCARD;
-	printf("GraphicsMemory: %d\n", GetGraphicMemorySize());
 	/*************************************************************************/
 	/* Game                                                                  */
-	/*************************************************************************/	
+	/*************************************************************************/
 	Game game;
 	if (game.loadLevel(&LEVEL_1_SEWER) != 0) {
 		printf("Game::Failed to load level!");
 		return 2;
 	}
-	
+
 	/*************************************************************************/
 	/* Misc.                                                                 */
 	/*************************************************************************/
 	Event event;
 	bool running = true;
-		
-	unsigned long long lastSecondTime = Timer::GetMilliSeconds();
-	unsigned long long lastFrameTime = lastSecondTime;
-	unsigned int frameCount = 0;
-	const unsigned int FPSlock = 80;
-	const unsigned int frameDelay = 1000 / FPSlock;
-		
+
+	uint64_t lastSecondTime = Timer::GetMilliSeconds();
+	uint64_t lastFrameTime = lastSecondTime;
+	uint32_t frameCount = 0;
+
 	while (running) {
-		const unsigned long long currentTime = Timer::GetMilliSeconds();
-		const unsigned long long frameTimeDiff = currentTime - lastFrameTime;
+		const uint64_t currentTime = Timer::GetMilliSeconds();
+		const uint64_t frameTimeDiff = currentTime - lastFrameTime;
 		lastFrameTime = currentTime;
-		
-//		while (Timer::GetMilliSeconds() - lastFrameTime <= frameDelay) { __asm__("nop"); }
-		
+
 		if (currentTime - lastSecondTime >= 1000) {
 			printf("FPS: %d\n", frameCount);
 			frameCount = 0;
 			lastSecondTime += 1000;
 		}
-		
+
 		/*********************************************************************/
 		/* Check keyboard events.                                            */
 		/*********************************************************************/
@@ -77,17 +69,17 @@ int main(int argc, char* argv[]) {
 
 		/*********************************************************************/
 		/* GUI                                                               */
-		/*********************************************************************/	
-		colorBuffer.clear();
+		/*********************************************************************/
+		output.clear();
 		game.update(frameTimeDiff);
-		game.draw(&colorBuffer, currentTime);
+		game.draw(&output, currentTime);
 
 		/*********************************************************************/
 		/* Send color buffer to the screen.                                  */
 		/*********************************************************************/
-		output.blit(&colorBuffer);
+		output.blit(NULL);
 		++frameCount;
 	}
-	
+
 	return 0;
 }
